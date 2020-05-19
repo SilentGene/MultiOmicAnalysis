@@ -232,13 +232,5 @@ out_dir_metaG="hgcA_metaG_abundance_SI047"
 out_dir_MC="SI047_MC"
 sbatch bwa-bbmap.slurm $input_fa $input_metaG_fq $out_dir
 sbatch MicrobeCensus.slurm $input_metaG_fq $out_dir_MC
-
-# For metatranscriptomic dataset
-input_fa="15hgcA.fna"
-input_metaT_fq="SI047_metaT_clean_data"
-out_dir_metaT="hgcA_metaT_abundance_SI047"
-sbatch bwa-samtools.slurm $input_fa $input_metaT_fq $out_dir
-# Count reads for metatranscriptomic data
-echo $(zcat SRR3719718.fastq.gz | wc -l)/4 | bc
 ```
 
