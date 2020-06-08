@@ -8,45 +8,42 @@ The links below the sub-headings lead to the scripts needed for the correspondin
 
 ### Software that has been integrated into Spartan system
 
-[Perl](https://www.perl.org/)
+- [Perl](https://www.perl.org/)
+- [Python3](https://www.python.org/)
 
-[Python3](https://www.python.org/)
+- [Trimmomatic](https://github.com/timflutre/trimmomatic)
 
-[Trimmomatic](https://github.com/timflutre/trimmomatic)
+- [MEGAHIT](https://github.com/voutcn/megahit)
 
-[MEGAHIT](https://github.com/voutcn/megahit)
+- [Prokka](https://github.com/tseemann/prokka)
 
-[Prokka](https://github.com/tseemann/prokka)
+- [Prodigal](https://github.com/hyattpd/Prodigal)
 
-[Prodigal](https://github.com/hyattpd/Prodigal)
+- [HMMER](http://hmmer.org/)
 
-[HMMER](http://hmmer.org/)
+- [CD-HIT](https://github.com/weizhongli/cdhit)
 
-[CD-HIT](https://github.com/weizhongli/cdhit)
+- [MAFFT](https://mafft.cbrc.jp/alignment/software/)
 
-[MAFFT](https://mafft.cbrc.jp/alignment/software/)
+- [IQ-TREE](http://www.iqtree.org/)
 
-[IQ-TREE](http://www.iqtree.org/)
+- [bwa](http://bio-bwa.sourceforge.net/)
+- [BBMap](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/)
 
-[bwa](http://bio-bwa.sourceforge.net/)
+- [Pandas](https://pandas.pydata.org/)
 
-[BBMap](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/)
-
-[Pandas](https://pandas.pydata.org/)
-
-[Numpy](https://numpy.org/)
+- [Numpy](https://numpy.org/)
 
 ### Software that needs to be installed manually 
 
-[metaWRAP](https://github.com/bxlab/metaWRAP)
+- [metaWRAP](https://github.com/bxlab/metaWRAP)
+- [CheckM](https://ecogenomics.github.io/CheckM/)
 
-[CheckM](https://ecogenomics.github.io/CheckM/)
+- [GTDB-Tk](https://github.com/Ecogenomics/GTDBTk)
 
-[GTDB-Tk](https://github.com/Ecogenomics/GTDBTk)
+- [MicrobeCensus](https://github.com/snayfach/MicrobeCensus)
 
-[MicrobeCensus](https://github.com/snayfach/MicrobeCensus)
-
-[Picard](https://broadinstitute.github.io/picard/)
+- [Picard](https://broadinstitute.github.io/picard/)
 
 
 
@@ -290,9 +287,9 @@ RPKM: Reads per kilo base per million mapped reads
 >
 > RPKM =   C / ( (L/1000) * (N/1,000,000) ) = (10^9 * C)/(N * L)
 >
-> C - number of reads mapped to a gene sequence
-> L - gene length in base-pairs for a gene
-> N - total number of mapped reads of a sample
+> - C - number of reads mapped to a gene sequence
+> - L - gene length in base-pairs for a gene
+> - N - total number of mapped reads of a sample
 
 [RPKM_cal.py](other_scripts/RPKM_cal.py)
 
