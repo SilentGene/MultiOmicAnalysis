@@ -8,7 +8,7 @@
 #SBATCH --mem=60G
 
 #SBATCH -t 8:00:00
-#==SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#==SBATCH --mail-user=your@email
 #==SBATCH --mail-type=ALL
 
 

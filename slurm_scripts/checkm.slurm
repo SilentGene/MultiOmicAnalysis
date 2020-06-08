@@ -8,7 +8,7 @@
 #SBATCH --mem=300G
 
 #SBATCH -t 10:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 module load Python/2.7.13-intel-2017.u2

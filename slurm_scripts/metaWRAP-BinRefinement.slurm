@@ -8,7 +8,7 @@
 #SBATCH --mem=500G
 
 #SBATCH -t 2-10:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 # note: each pplacer thread uses >40GB

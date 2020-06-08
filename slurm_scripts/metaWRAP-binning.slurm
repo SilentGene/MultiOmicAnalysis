@@ -8,7 +8,7 @@
 #SBATCH --mem=50G
 
 #SBATCH -t 2-00:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 # cpus are important for mapping. Consider to use the same number of CPUs with the number of samples.

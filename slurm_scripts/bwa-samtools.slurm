@@ -6,15 +6,9 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 
-#SBATCH -t 4:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH -t 8:00:00
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=FAIL
-
-####### Desc
-# Mapping reads to genes/contigs and calculate the number of mapped reads
-
-####### Usage
-# $ sbatch bwa-samtools.slurm gene.fna clean_data
 
 ########### Configuration Start ###########
 cpus=4
@@ -53,14 +47,6 @@ while read reads1; do
     # sort bam
     samtools sort -@ $cpus -o $out_stats_dir/$base.sort.bam $out_stats_dir/$base.bam
 
-    # sort bam
-    samtools index $out_stats_dir/$base.sort.bam
-
-    # calculate mapped reads
-    samtools idxstats $out_stats_dir/$base.sort.bam > $out_stats_dir/$base.stats
-
     # cleanning
     rm $out_stats_dir/$base.bam
-    rm $out_stats_dir/$base.sort.bam
-    rm $out_stats_dir/$base.sort.bam.bai
 done

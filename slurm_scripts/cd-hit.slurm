@@ -8,7 +8,7 @@
 #SBATCH --mem=10G
 
 #SBATCH -t 01:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 #cd-hit is for Clustering peptide sequences

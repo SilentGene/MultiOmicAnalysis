@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=1
 
 #SBATCH -t 1:00:00
-#=SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#=SBATCH --mail-user=your@email
 #=SBATCH --mail-type=ALL
 
 module load HMMER/3.2.1-spartan_intel-2017.u2

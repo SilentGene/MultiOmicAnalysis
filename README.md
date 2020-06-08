@@ -1,10 +1,12 @@
 # Genome-centric Multi-omic Analysis Workflow
 
-This repository contains a collection of code and scripts used in the paper "A novel and environmentally widespread *Marinimicrobia* clade methylates mercury in low-oxygen marine environments". 
+This repository contains a collection of code and scripts used in the paper **Mercury methylation by metabolically versatile and cosmopolitan marine bacteria** by Lin et al. (Under Review). 
 
-The links below the sub-headings lead to the scripts needed for the corresponding steps. Most of the scripts were developed for running on the [SLURM](https://slurm.schedmd.com/) workload manager. All code and scripts were created for and tested on [Spartan](https://dashboard.hpc.unimelb.edu.au/) HPC at The University of Melbourne.
+The links below the sub-headings lead to the scripts needed for the corresponding steps. Most of the scripts were developed for running on the [SLURM](https://slurm.schedmd.com/) workload manager. All code and scripts were created for and tested on [Spartan](https://dashboard.hpc.unimelb.edu.au/) HPC at The University of Melbourne. You may download and adapt the scripts to suit your own requirements.
 
 ## 1. Software used in this workflow
+
+### Software that has been integrated into Spartan system
 
 [Perl](https://www.perl.org/)
 
@@ -14,15 +16,9 @@ The links below the sub-headings lead to the scripts needed for the correspondin
 
 [MEGAHIT](https://github.com/voutcn/megahit)
 
-[metaWRAP](https://github.com/bxlab/metaWRAP)
-
-[SPAdes](https://github.com/ablab/spades)
-
 [Prokka](https://github.com/tseemann/prokka)
 
-[CheckM](https://ecogenomics.github.io/CheckM/)
-
-[GTDB-Tk](https://github.com/Ecogenomics/GTDBTk)
+[Prodigal](https://github.com/hyattpd/Prodigal)
 
 [HMMER](http://hmmer.org/)
 
@@ -36,27 +32,43 @@ The links below the sub-headings lead to the scripts needed for the correspondin
 
 [BBMap](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/bbmap-guide/)
 
+[Pandas](https://pandas.pydata.org/)
+
+[Numpy](https://numpy.org/)
+
+### Software that needs to be installed manually 
+
+[metaWRAP](https://github.com/bxlab/metaWRAP)
+
+[CheckM](https://ecogenomics.github.io/CheckM/)
+
+[GTDB-Tk](https://github.com/Ecogenomics/GTDBTk)
+
 [MicrobeCensus](https://github.com/snayfach/MicrobeCensus)
 
+[Picard](https://broadinstitute.github.io/picard/)
 
 
-> Take the five samples from SI047 station as an example.
+
+> Take the five samples from "SI047 S3" station as an example.
 
 ## 2. Raw Data Download
 
  ```bash
 ids="SRR3724469;SRR3724456;SRR3724482;SRR3724508;SRR3724533"  # SRA accessions for the 5 metagenomic samples
 urls="SI047_ftp_urls.txt"  # output
+out_dir="SI047_raw_data"  # output
 
 # Using ENA API to retreive data urls
 for str in ${ids//;/ } ; do echo 'ftp://ftp.sra.ebi.ac.uk/vol1/fastq/'${str:0:6}'/00'${str:0-1}'/'$str'/'$str'_1.fastq.gz' >> $urls; echo 'ftp://ftp.sra.ebi.ac.uk/vol1/fastq/'${str:0:6}'/00'${str:0-1}'/'$str'/'$str'_2.fastq.gz' >> $urls; done
 
-wget -b -q -i $urls  # download
+# Download raw fastq files to $out_dir
+wget -b -q -i $urls -P $out_dir
  ```
 
 ## 3. Read trimming
 
- [trimmomatic-loop.slurm](slurm_scripts\trimmomatic-loop.slurm) 
+ [trimmomatic-loop.slurm](slurm_scripts/trimmomatic-loop.slurm) 
 
 ```bash
 input="SI047_raw_data"
@@ -68,7 +80,7 @@ sbatch trimmomatic-loop.slurm $input $output
 
 ### MEGAHIT
 
- [megahit-coassembly.slurm](slurm_scripts\megahit-coassembly.slurm) 
+ [megahit-coassembly.slurm](slurm_scripts/megahit-coassembly.slurm) 
 
 ```bash
 input="SI047_clean_data"
@@ -78,7 +90,7 @@ sbatch megahit-coassembly.slurm $input $output
 
 ### Remove small contigs
 
- [remove_small_seqs.pl](other_scripts\remove_small_seqs.pl) 
+ [remove_small_seqs.pl](other_scripts/remove_small_seqs.pl) 
 
 ```bash
 input="SI047_megahit/final.contigs.fa"
@@ -88,9 +100,11 @@ perl remove_small_seqs.pl 2000 $input > $output
 
 ## 5. Binning
 
+* `metaWRAP` conda env is required
+
 ### Initial Binning
 
- [metaWRAP-binning.slurm](slurm_scripts\metaWRAP-binning.slurm) 
+ [metaWRAP-binning.slurm](slurm_scripts/metaWRAP-binning.slurm) 
 
 ```bash
 input_fa="SI047_megahit/SI047.2k.fa"
@@ -101,7 +115,7 @@ sbatch metaWRAP-binning $input_fa $input_fq $output  # Using --metabat1 --metaba
 
 ### Bins Refinement
 
- [metaWRAP-BinRefinement.slurm](slurm_scripts\metaWRAP-BinRefinement.slurm) 
+ [metaWRAP-BinRefinement.slurm](slurm_scripts/metaWRAP-BinRefinement.slurm) 
 
 ```bash
 input="SI047_binning_out"
@@ -111,7 +125,7 @@ sbatch metaWRAP-BinRefinement.slurm $input $output  # Integrating the output fro
 
 ### Bins Reassembly
 
- [metaWRAP-ReassembleBins.slurm](slurm_scripts\metaWRAP-ReassembleBins.slurm) 
+ [metaWRAP-ReassembleBins.slurm](slurm_scripts/metaWRAP-ReassembleBins.slurm) 
 
 ```bash
 input="SI047_bins_refined/metawrap_70_10_bins"
@@ -129,7 +143,7 @@ cp -rf SI047_bins_reassembled/reassembled_bins/*fa
 
 ## 6. Bins Annotation
 
- [prokka.slurm](slurm_scripts\prokka.slurm) 
+ [prokka.slurm](slurm_scripts/prokka.slurm) 
 
 ```bash
 input="SI047_final_bins"
@@ -143,7 +157,7 @@ done
 
 ### CheckM
 
- [checkm.slurm](slurm_scripts\checkm.slurm) 
+ [checkm.slurm](slurm_scripts/checkm.slurm) 
 
 ```bash
 input="SI047_final_bins"
@@ -153,7 +167,7 @@ sbatch checkm.slurm $input $output
 
 ### GTDB-Tk
 
- [gtdbtk.slurm](slurm_scripts\gtdbtk.slurm) 
+ [gtdbtk.slurm](slurm_scripts/gtdbtk.slurm) 
 
 ```bash
 input="SI047_final_bins"
@@ -167,7 +181,7 @@ sbatch gtdbtk.slurm $input $output
 
 > The hmm database for HgcA proteins is needed for this step. `HgcA.hmm` is available upon request.
 
- [hmmsearch.slurm](slurm_scripts\hmmsearch.slurm) 
+ [hmmsearch.slurm](slurm_scripts/hmmsearch.slurm) 
 
 ```bash
 input="SI047_final_bins_prokka"
@@ -181,7 +195,7 @@ while read faa
 
 ###Reduce Redundancy
 
- [cd-hit.slurm](slurm_scripts\cd-hit.slurm) 
+ [cd-hit.slurm](slurm_scripts/cd-hit.slurm) 
 
 ```bash
 cat SI047_HgcA_search/*faa > SI047_hgcA_all.faa  # need some outgroups
@@ -194,7 +208,7 @@ sbatch cd-hit.slurm $input $output
 
 ### Alignment
 
- [mafft.slurm](slurm_scripts\mafft.slurm) 
+ [mafft.slurm](slurm_scripts/mafft.slurm) 
 
 ```bash
 input="SI047_hgcA.faa"
@@ -203,12 +217,12 @@ sbatch mafft.slurm $input $output
 ```
 ### ML Tree
 
- [fasta2relaxedphylip.py](other_scripts\fasta2relaxedphylip.py) 
+ [fasta2relaxedphylip.py](other_scripts/fasta2relaxedphylip.py) 
 
- [iqtree.slurm](slurm_scripts\iqtree.slurm) 
+ [iqtree.slurm](slurm_scripts/iqtree.slurm) 
 
 ```bash
-# Change FastA to Phylip format
+# Change Fasta to Phylip format
 python fasta2relaxedphylip.py -i SI047_hgcA.aln.faa -o SI047_hgcA.aln.phy
 
 # Make Tree
@@ -216,16 +230,13 @@ input="SI047_hgcA.aln.phy"
 sbatch mafft-iqtree.slurm $input
 ```
 
-## 10. Gene Abundance in metagenomic and metatranscriptomic datasets
+## 10. Gene Abundance in metagenomic datasets
 
- [bwa-bbmap.slurm](slurm_scripts\bwa-bbmap.slurm) 
+ [bwa-bbmap.slurm](slurm_scripts/bwa-bbmap.slurm) 
 
- [MicrobeCensus.slurm](slurm_scripts\MicrobeCensus.slurm) 
-
- [bwa-samtools.slurm](slurm_scripts\bwa-samtools.slurm) 
+ [MicrobeCensus.slurm](slurm_scripts/MicrobeCensus.slurm) 
 
 ```bash
-# For metagenomic dataset
 input_fa="15hgcA.fna"
 input_metaG_fq="SI047_clean_data"
 out_dir_metaG="hgcA_metaG_abundance_SI047"
@@ -233,4 +244,77 @@ out_dir_MC="SI047_MC"
 sbatch bwa-bbmap.slurm $input_fa $input_metaG_fq $out_dir
 sbatch MicrobeCensus.slurm $input_metaG_fq $out_dir_MC
 ```
+## 11. PRKM calculation for metatranscriptomic datasets
+
+### Preparation
+
+* `htseq` conda env is required
+
+[prodigal.slurm](slurm_scripts/prodigal.slurm)
+
+[bwa-samtools.slurm](slurm_scripts/bwa-samtools.slurm)
+
+[picard.slurm](slurm_scripts/picard.slurm)
+
+[htseq.slurm](slurm_scripts/htseq.slurm)
+
+```bash
+# ORF prediction
+input_fa="SI047_megahit/SI047.2k.fa"
+out_dir_prodigal="SI047_prodigal"
+sbatch prodigal.slurm $input_fa $out_dir_prodigal
+
+# mapping reads with bwa
+input_fa="SI047_megahit/SI047.2k.fa"
+input_metaT_fq="SI047_metaT_clean_data" # derived from a similar procedure to metagenomic clean data
+out_dir="SI047_metaT_mapping"
+sbatch bwa-samtools.slurm $input_fa $input_metaT_fq $out_dir  # mapping and sort
+sbatch picard.slurm $out_dir  # removing duplicates
+
+# counting mapped reads per gene
+input_bams_dir="SI047_metaT_mapping"
+input_gff="SI047_prodigal/SI047.gff"
+output_count="SI047_reads_count"
+sbatch htseq.slurm $input_bams_dir $input_gff $output_count
+
+# calculating gene lengths
+input_gff="SI047_prodigal/SI047.gff"
+cut -f4,5,9 $input_gff | sed 's/gene_id //g' | gawk '{print $3,$2-$1+1}' | tr ' ' '\t' > ${input_gff%.*}.gl.txt
+```
+
+### RPKM table
+
+RPKM: Reads per kilo base per million mapped reads
+
+> **Formula**
+>
+> RPKM =   C / ( (L/1000) * (N/1,000,000) ) = (10^9 * C)/(N * L)
+>
+> C - number of reads mapped to a gene sequence
+> L - gene length in base-pairs for a gene
+> N - total number of mapped reads of a sample
+
+[RPKM_cal.py](other_scripts/RPKM_cal.py)
+
+[Pandas](https://pandas.pydata.org/)
+
+[Numpy](https://numpy.org/)
+
+```bash
+module load pandas/0.23.4-intel-2016.u3-Python-3.5.2  # loading Python3 and Pandas module
+module load numpy/1.12.1-intel-2017.u2-Python-3.5.2 # loading Numpy module
+
+count_dir="SI047_reads_count"
+gene_len="SI047_prodigal/SI047.gl.txt"
+RPKM_out="SI047.rpkm.tsv"
+python RPKM_cal.py -c $count_dir -l $gene_len -o $RPKM_out
+```
+
+
+
+## Copyright
+
+Heyu Lin [heyu.lin@student.unimelb.edu.au](mailto:heyu.lin@student.unimelb.edu.au)
+
+School of Earth Sciences, The University of Melbourne
 

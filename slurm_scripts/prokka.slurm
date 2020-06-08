@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=3
 
 #SBATCH -t 3:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=FAIL
 
 

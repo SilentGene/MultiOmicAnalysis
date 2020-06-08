@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=6
 
 #SBATCH -t 00:10:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 fas_in=$1

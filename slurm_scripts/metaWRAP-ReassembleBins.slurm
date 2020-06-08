@@ -8,7 +8,7 @@
 #SBATCH --mem=450G
 
 #SBATCH -t 3-00:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 # SPAdes uses 512 Mb per thread for buffers

@@ -8,7 +8,7 @@
 #SBATCH --mem=500G
 
 #SBATCH -t 1-00:00:00
-#SBATCH --mail-user=heyu.lin@student.unimelb.edu.au
+#SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
 in_dir=$1
