@@ -190,7 +190,7 @@ while read faa
 	done
 ```
 
-###Reduce Redundancy
+### Reduce Redundancy
 
  [cd-hit.slurm](slurm_scripts/cd-hit.slurm) 
 
@@ -212,7 +212,7 @@ input="SI047_hgcA.faa"
 output="SI047_hgcA.aln.faa"
 sbatch mafft.slurm $input $output
 ```
-### ML Tree
+### Maximum Likelihood (ML) Tree
 
  [fasta2relaxedphylip.py](other_scripts/fasta2relaxedphylip.py) 
 
