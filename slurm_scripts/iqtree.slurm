@@ -10,8 +10,8 @@
 #SBATCH --mail-user=your@email
 #SBATCH --mail-type=ALL
 
-fas_in=$1
+phy_in=$1
 cpus=6
 
 module load iqtree/1.6.7-intel-2016.u3
-iqtree-mpi -s $fas_in".phy" -bb 1000 -alrt 1000 -nt $cputs
+iqtree-mpi -s $phy_in -bb 1000 -alrt 1000 -nt $cpus
