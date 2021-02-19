@@ -1,6 +1,6 @@
 # Genome-centric Multi-omic Analysis Workflow
 
-This repository contains a collection of code and scripts used in the paper **Mercury methylation by metabolically versatile and cosmopolitan marine bacteria** by Lin et al. (Under Review). 
+This repository contains a collection of code and scripts used in the paper **Mercury methylation by metabolically versatile and cosmopolitan marine bacteria** (DOI: [10.1038/s41396-020-00889-4](https://doi.org/10.1038/s41396-020-00889-4)) by Lin et al.. 
 
 The links below the sub-headings lead to the scripts needed for the corresponding steps. Most of the scripts were developed for running on the [SLURM](https://slurm.schedmd.com/) workload manager. All code and scripts were created for and tested on [Spartan](https://dashboard.hpc.unimelb.edu.au/) HPC at The University of Melbourne. You may download and adapt the scripts to suit your own requirements.
 
@@ -314,4 +314,8 @@ python RPKM_cal.py -c $count_dir -l $gene_len -o $RPKM_out
 Heyu Lin [heyu.lin@student.unimelb.edu.au](mailto:heyu.lin@student.unimelb.edu.au)
 
 School of Earth Sciences, The University of Melbourne
+
+Please cite the article if the scripts are helpful in your research.
+
+Lin, H., Ascher, D.B., Myung, Y. *et al.* Mercury methylation by metabolically versatile and cosmopolitan marine bacteria. *ISME J* (2021). https://doi.org/[10.1038/s41396-020-00889-4](https://doi.org/10.1038/s41396-020-00889-4)
 
