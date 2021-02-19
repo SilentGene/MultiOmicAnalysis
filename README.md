@@ -317,5 +317,5 @@ School of Earth Sciences, The University of Melbourne
 
 Please cite the article if the scripts are helpful in your research.
 
-Lin, H., Ascher, D.B., Myung, Y. *et al.* Mercury methylation by metabolically versatile and cosmopolitan marine bacteria. *ISME J* (2021). https://doi.org/[10.1038/s41396-020-00889-4](https://doi.org/10.1038/s41396-020-00889-4)
+Lin, H., Ascher, D.B., Myung, Y. *et al.* Mercury methylation by metabolically versatile and cosmopolitan marine bacteria. *ISME J* (2021). [https://doi.org/10.1038/s41396-020-00889-4](https://doi.org/10.1038/s41396-020-00889-4)
 
