@@ -1,3 +1,5 @@
+[![Generic badge](https://img.shields.io/badge/DOI-10.1038%2Fs41396--020--00889--4-blue)](https://doi.org/10.1038/s41396-020-00889-4)
+
 # Genome-centric Multi-omic Analysis Workflow
 
 This repository contains a collection of code and scripts used in the paper **Mercury methylation by metabolically versatile and cosmopolitan marine bacteria** (DOI: [10.1038/s41396-020-00889-4](https://doi.org/10.1038/s41396-020-00889-4)) by Lin et al.. 
