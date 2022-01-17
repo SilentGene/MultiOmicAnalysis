@@ -127,7 +127,7 @@ sbatch metaWRAP-BinRefinement.slurm $input $output  # Integrating the output fro
  [metaWRAP-ReassembleBins.slurm](slurm_scripts/metaWRAP-ReassembleBins.slurm) 
 
 ```bash
-#Pick up some bins of interest to do reassembly
+# Pick up some bins of interest to process reassembly
 mkdir SI047_bins_interest
 cp SI047_bins_refined/metawrap_70_10_bins/bin5.fa SI047_bins_interest
 cp SI047_bins_refined/metawrap_70_10_bins/bin12.fa SI047_bins_interest
