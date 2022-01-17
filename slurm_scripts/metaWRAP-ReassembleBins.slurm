@@ -13,11 +13,12 @@
 
 # SPAdes uses 512 Mb per thread for buffers
 
-clean_data=$1
-output=$2
+input_reads_dir=$1
+input_bins_dir=$2
+output=$3
 
-cat $clean_data/*1.fq.gz > 'clean_1.fq.gz'
-cat $clean_data/*2.fq.gz > 'clean_2.fq.gz'
+cat $input_reads_dir/*1.fq.gz > 'clean_1.fq.gz'
+cat $input_reads_dir/*2.fq.gz > 'clean_2.fq.gz'
 gunzip *.gz
 
 cpus=8
@@ -27,5 +28,5 @@ mem=450
 conda activate metawrap-env
 metawrap reassemble_bins -o $output -t $cpus -m $mem \
     -1 'clean_1.fq' -2 'clean_2.fq' \
-    -c 90 -x 5 -l 2000 -b $clean_data
+    -c 90 -x 5 -l 2000 -b $input_bins_dir
 conda deactivate

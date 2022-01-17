@@ -125,9 +125,16 @@ sbatch metaWRAP-BinRefinement.slurm $input $output  # Integrating the output fro
  [metaWRAP-ReassembleBins.slurm](slurm_scripts/metaWRAP-ReassembleBins.slurm) 
 
 ```bash
-input="SI047_bins_refined/metawrap_70_10_bins"
+#Pick up some bins of interest to do reassembly
+mkdir SI047_bins_interest
+cp SI047_bins_refined/metawrap_70_10_bins/bin5.fa SI047_bins_interest
+cp SI047_bins_refined/metawrap_70_10_bins/bin12.fa SI047_bins_interest
+
+# Running metaWRAP
+input_reads_dir="SI047_bins_refined/metawrap_70_10_bins"
+input_bins_dir="SI047_bins_interest"
 output="SI047_bins_reassembled"
-sbatch metaWRAP-ReassembleBins.slurm $input $output
+sbatch metaWRAP-ReassembleBins.slurm $input_reads_dir $input_bins_dir $output
 ```
 
 ### Final Bins
@@ -135,7 +142,7 @@ sbatch metaWRAP-ReassembleBins.slurm $input $output
 ```bash
 mkdir SI047_final_bins
 cp SI047_bins_refined/metawrap_70_10_bins/*fa SI047_final_bins
-cp -rf SI047_bins_reassembled/reassembled_bins/*fa
+cp -rf SI047_bins_reassembled/reassembled_bins/*fa SI047_final_bins
 ```
 
 ## 6. Bins Annotation
